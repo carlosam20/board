@@ -1,9 +1,22 @@
 services:
   postgres:
-    image: 'postgres:latest'
+    container_name: postgres-board
+    image: postgres:14.19-alpine3.21
     environment:
-      - 'POSTGRES_DB=mydatabase'
-      - 'POSTGRES_PASSWORD=secret'
-      - 'POSTGRES_USER=myuser'
+      POSTGRES_USER: charles
+      POSTGRES_PASSWORD: dardos
+      PGDATA: /data/postgres
+
+    volumes:
+      - postgres:/data/postgres
     ports:
-      - '5432'
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+volumes:
+  postgres:
+
+networks:
+  postgres:
+    driver: bridge

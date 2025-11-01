@@ -1,0 +1,16 @@
+spring:
+  application:
+    name=board:
+  datasource:
+    username: 'charles'
+    url: jdbc:postgresql://localhost:5432/charles
+    password: 'dardos'
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
