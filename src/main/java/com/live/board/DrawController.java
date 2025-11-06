@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 import java.awt.event.ActionEvent;
@@ -15,6 +16,9 @@ import java.awt.event.ActionEvent;
 @Slf4j
 @Controller
 public class DrawController {
+
+
+
 
     @MessageMapping("/draw")
     @SendTo("/topic/board")
@@ -34,7 +38,8 @@ public class DrawController {
     @SendTo("/topic/board/{roomId}")
     public DrawingEvent broadcastToRoom(@DestinationVariable String roomId, @Valid DrawingEvent event) {
         try{
-//            RoomPublisher roomPublisher = new ();
+            RoomPublisher roomPublisher = new RoomPublisher(event1 -> event.getSessionId());
+            roomPublisher.publishCustomEvent("Room entered with event:"+event+ "and roomId");
             log.info("Room [{}] - Event: {}", roomId, event);
         }catch (Exception e){
             log.error("Error entering Room threw: {}",roomId,e);

@@ -2,14 +2,14 @@ package com.live.board;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.context.ApplicationEvent;
 
-@AllArgsConstructor
 @Getter
-public class RoomEvent {
-    private String message;
+public class RoomEvent extends ApplicationEvent {
+    private final String message;
 
     public RoomEvent(Object source, String message) {
-        super();
+        super(source);
         this.message = message;
     }
 }
